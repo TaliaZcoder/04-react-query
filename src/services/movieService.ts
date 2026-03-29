@@ -9,7 +9,7 @@ interface TMDBResponse {
 axios.defaults.baseURL = "https://api.themoviedb.org/3";
 
 export const fetchMovies = async (query: string, page: number):
-  Promise<Movie[]> => {
+  Promise<TMDBResponse> => {
   try {
     const response = await axios.get<TMDBResponse>("/search/movie", {
       params: { query: query.trim(), page},
@@ -18,7 +18,7 @@ export const fetchMovies = async (query: string, page: number):
       },
     });
 
-    return response.data.results;
+    return response.data;
   } catch (error) {
     console.error("Error fetching movies:", error);
     throw error;
