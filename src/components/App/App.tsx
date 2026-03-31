@@ -11,7 +11,7 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import MovieModal from "../MovieModal/MovieModal";
 
 
-import ReactPaginate from "react-paginate/dist/react-paginate";
+import ReactPaginate from "react-paginate";
 
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
