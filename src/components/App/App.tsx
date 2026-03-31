@@ -10,10 +10,13 @@ import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import MovieModal from "../MovieModal/MovieModal";
 
-import ReactPaginate from "react-paginate";
+
+import ReactPaginate from "react-paginate/dist/react-paginate";
 
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
+
+import css from "./App.module.css";
 
 export default function App() {
   const [query, setQuery] = useState("");
@@ -24,6 +27,7 @@ export default function App() {
     queryKey: ["movies", query, page],
     queryFn: () => fetchMovies(query, page),
     enabled: !!query, 
+    placeholderData: (prev) => prev,
    });
   
   const movies = data?.results || [];
@@ -36,10 +40,13 @@ export default function App() {
 
 
   useEffect(() => {
-  if (data && data.results.length === 0) {
+  if (data && page === 1 && data.results.length === 0) {
     toast.error("No movies found for your request.");
   }
-}, [data]);
+  }, [data, page]);
+  
+ 
+
 
   return (
     <div>
@@ -61,8 +68,8 @@ export default function App() {
           marginPagesDisplayed={1}
           onPageChange={({ selected }) => setPage(selected + 1)}
           forcePage={page - 1}
-          containerClassName="pagination"
-          activeClassName="active"
+          containerClassName={css.pagination}
+          activeClassName={css.active}
           nextLabel="→"
           previousLabel="←"
         />
@@ -76,4 +83,7 @@ export default function App() {
       )}
     </div>
   );
+
+  console.log(ReactPaginate)
 }
+
